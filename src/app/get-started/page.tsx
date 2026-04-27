@@ -8,10 +8,12 @@ const sliderTrackClassName =
   "flex w-[200%] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
 const socialButtonClassName =
-  "flex h-11 w-11 items-center justify-center rounded-full border border-[#ddd3bf] text-[#6a6457] transition-colors hover:border-[#2f5d31] hover:text-[#2f5d31]";
+  "flex h-11 w-11 items-center justify-center rounded-full border border-[#ddd3bf] text-[#6a6457] transition-colors hover:border-[#2f5d31] hover:text-[#2f5d31] cursor-pointer";
 
 const inputClassName =
   "w-full rounded-2xl border border-[#e5dcc9] bg-[#fbf8f1] px-4 py-3 text-[#243821] outline-none transition-all duration-300 placeholder:text-[#9a8f7b] focus:border-[#94a24a] focus:bg-white focus:shadow-[0_0_0_4px_rgba(126,141,47,0.12)]";
+
+const formControlWrapClassName = "mx-auto w-[88%] sm:w-[84%] cursor-pointer";
 
 function SocialButtons() {
   return (
@@ -53,7 +55,9 @@ function SocialButtons() {
 function LoginForm() {
   return (
     <form className="mx-auto w-full max-w-md">
-      <div className="rounded-full border border-[#e8dfcc] bg-white/80 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-[#7a6c57]">
+      <div
+        className=" rounded-full border border-[#e8dfcc] bg-white/80 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-[#7a6c57] mx-auto w-[88%] sm:w-[84%]"
+      >
         Member Login
       </div>
 
@@ -67,21 +71,21 @@ function LoginForm() {
         or use your account email
       </p>
 
-      <div className="mt-6 space-y-4">
+      <div className={`${formControlWrapClassName} mt-6 space-y-4`}>
         <input type="email" placeholder="Email" className={inputClassName} />
         <input type="password" placeholder="Password" className={inputClassName} />
       </div>
 
       <button
         type="button"
-        className="mt-3 text-sm font-medium text-[#6a6457] transition-colors hover:text-[#2f5d31]"
+        className={`${formControlWrapClassName} mt-3 block text-left text-sm font-medium text-[#6a6457] transition-colors hover:text-[#2f5d31]`}
       >
         Forgot your password?
       </button>
 
       <button
         type="submit"
-        className="mt-6 w-full rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(47,93,49,0.22)]"
+        className={`${formControlWrapClassName} mt-6 block rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(47,93,49,0.22)]`}
       >
         Sign In
       </button>
@@ -92,7 +96,9 @@ function LoginForm() {
 function SignupForm() {
   return (
     <form className="mx-auto w-full max-w-md">
-      <div className="rounded-full border border-[#e8dfcc] bg-white/80 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-[#7a6c57]">
+      <div
+        className={`${formControlWrapClassName} rounded-full border border-[#e8dfcc] bg-white/80 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-[#7a6c57]`}
+      >
         New Registration
       </div>
 
@@ -106,7 +112,7 @@ function SignupForm() {
         or use your email for registration
       </p>
 
-      <div className="mt-6 space-y-4">
+      <div className={`${formControlWrapClassName} mt-6 space-y-4`}>
         <input type="text" placeholder="Name" className={inputClassName} />
         <input type="email" placeholder="Email" className={inputClassName} />
         <input type="password" placeholder="Password" className={inputClassName} />
@@ -114,7 +120,7 @@ function SignupForm() {
 
       <button
         type="submit"
-        className="mt-6 w-full rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(47,93,49,0.22)]"
+        className={`${formControlWrapClassName} mt-6 block rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(47,93,49,0.22)]`}
       >
         Sign Up
       </button>
@@ -150,7 +156,7 @@ function IntroPanel({
         <button
           type="button"
           onClick={onClick}
-          className="mt-2 inline-flex min-w-40 items-center justify-center rounded-full border border-white/70 bg-transparent px-10 py-3.5 text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-[#2f5d31]"
+          className="mt-2 inline-flex min-w-40 items-center justify-center rounded-full border border-white/70 bg-transparent px-10 py-3.5 text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-[#2f5d31] cursor-pointer"
         >
           {buttonLabel}
         </button>
@@ -164,7 +170,7 @@ export default function GetStartedPage() {
   const isLogin = mode === "login";
 
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f7f3e8_0%,#eef3e6_100%)] py-14 sm:py-20">
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f7f3e8_0%,#eef3e6_100%)] py-14 sm:py-5">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute top-16 left-[10%] h-48 w-48 rounded-full bg-[#b98a2c]/10 blur-3xl" />
         <div className="absolute right-[8%] bottom-10 h-64 w-64 rounded-full bg-[#2f5d31]/12 blur-3xl" />
@@ -175,13 +181,7 @@ export default function GetStartedPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#7a6c57]">
             Account Access
           </p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-[#243821] sm:text-5xl">
-            Sign in and sign up inside one sliding card
-          </h1>
-          <p className="mt-4 text-base leading-7 text-[#655f51] sm:text-lg">
-            Click the action button and the content now slides across the modal card
-            instead of switching like a separate full page.
-          </p>
+         
         </div>
 
         <div className="mx-auto mt-10 max-w-5xl overflow-hidden rounded-[2rem] border border-white/70 bg-white/88 shadow-[0_30px_90px_rgba(66,52,23,0.16)] backdrop-blur-xl">
@@ -216,18 +216,18 @@ export default function GetStartedPage() {
               </div>
             </div>
 
-            <div className="overflow-hidden bg-[linear-gradient(180deg,#fffdf8_0%,#f8f5ec_100%)] p-6 sm:p-8 lg:p-12">
-              <div className="mb-8 flex justify-center">
-                <div className="relative grid w-full max-w-xs grid-cols-2 rounded-full border border-[#e5dcc9] bg-white/80 p-1 text-sm font-semibold text-[#6a6457] shadow-[0_10px_30px_rgba(91,74,38,0.08)]">
+            <div className="overflow-hidden bg-[linear-gradient(180deg,#fffdf8_0%,#f8f5ec_100%)] px-6 pt-8 pb-6 sm:px-8 sm:pt-10 sm:pb-8 lg:px-12 lg:pt-14 lg:pb-12">
+              <div className={`${formControlWrapClassName} mb-10`}>
+                <div className="relative grid w-full grid-cols-2 rounded-full border border-[#e5dcc9] bg-white/80 p-1 text-sm font-semibold text-[#6a6457] shadow-[0_10px_30px_rgba(91,74,38,0.08)]">
                   <div
-                    className={`absolute inset-y-1 w-[calc(50%-0.25rem)] rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] shadow-[0_12px_24px_rgba(47,93,49,0.22)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] shadow-[0_12px_24px_rgba(47,93,49,0.22)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                       isLogin ? "translate-x-0" : "translate-x-full"
                     }`}
                   />
                   <button
                     type="button"
                     onClick={() => setMode("login")}
-                    className={`relative z-10 rounded-full px-5 py-3 transition-colors ${
+                    className={`relative z-10 rounded-full px-5 py-3 transition-colors cursor-pointer ${
                       isLogin ? "text-white" : "text-[#6a6457]"
                     }`}
                   >
@@ -236,7 +236,7 @@ export default function GetStartedPage() {
                   <button
                     type="button"
                     onClick={() => setMode("signup")}
-                    className={`relative z-10 rounded-full px-5 py-3 transition-colors ${
+                    className={`relative z-10 rounded-full px-5 py-3 transition-colors cursor-pointer ${
                       isLogin ? "text-[#6a6457]" : "text-white"
                     }`}
                   >
