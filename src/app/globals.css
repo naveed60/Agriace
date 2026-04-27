@@ -199,8 +199,13 @@ body {
   content: "";
   position: absolute;
   inset: auto 0 0;
-  height: 160px;
-  background: linear-gradient(to top, rgba(240, 233, 216, 0.96), transparent);
+  height: 150px;
+  background: linear-gradient(
+    to top,
+    rgba(4, 7, 4, 0.64),
+    rgba(4, 7, 4, 0.22),
+    transparent
+  );
   pointer-events: none;
 }
 

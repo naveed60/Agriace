@@ -16,7 +16,7 @@ const navItems = [
       "Discover premium fertilizer solutions designed for stronger soil health and reliable field performance.",
     image: "/brand-identity.jpeg",
     links: [
-      { href: "/", label: "Company Overview" },
+      { href: "/company-overview", label: "Company Overview" },
       { href: "/products", label: "Featured Products" },
       { href: "/about", label: "Why AgriAce" },
       { href: "/contact", label: "Get in Touch" },
@@ -48,7 +48,7 @@ const navItems = [
       "Learn about our quality standards, agricultural focus, and the brand values behind our fertilizer line.",
     image: "/logo-title.jpeg",
     links: [
-      { href: "/about", label: "Company Overview" },
+      { href: "/company-overview", label: "Company Overview" },
       { href: "/about", label: "Our Mission" },
       { href: "/about", label: "Quality Commitment" },
       { href: "/contact", label: "Connect With Us" },
@@ -80,10 +80,18 @@ export default function Header() {
   const activeItem =
     navItems.find((item) => item.href === activeMenu) ?? navItems[0];
 
+  const isNavActive = (href: string) => {
+    if (href === "/about") {
+      return pathname === "/about" || pathname === "/company-overview";
+    }
+
+    return pathname === href;
+  };
+
   const navLinkClassName = (href: string) =>
     [
       "group relative inline-flex items-center gap-2 px-1 py-2 text-sm font-medium tracking-[0.01em] transition-colors duration-300",
-      pathname === href || activeMenu === href
+      isNavActive(href) || activeMenu === href
         ? "text-[#2c3f23]"
         : "text-[#6a6558] hover:text-[#2c3f23]",
     ].join(" ");
@@ -91,10 +99,10 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#ddd6c5]/80 bg-[#fbf8f0]/94 shadow-sm backdrop-blur-xl">
       <nav className="container mx-auto px-6">
-        <div className="flex h-20 items-center justify-between gap-6">
+        <div className="flex h-20 items-center justify-between gap-4 md:grid md:grid-cols-[minmax(280px,1fr)_auto_minmax(280px,1fr)] md:gap-6">
           <Link
             href="/"
-            className="flex min-w-0 items-center gap-3 pr-6 lg:flex-[0_0_auto]"
+            className="flex min-w-0 flex-1 items-center gap-3 md:max-w-[320px] md:justify-self-start"
           >
             <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#ddd4c0] bg-white shadow-[0_8px_22px_rgba(91,74,38,0.08)]">
               <Image
@@ -107,21 +115,21 @@ export default function Header() {
               />
             </div>
 
-            <div className="min-w-0">
+            <div className="min-w-0 leading-none">
               <div className="truncate text-[1rem] font-semibold tracking-[0.01em] text-[#2c3f23]">
                 AgriAce Fertilizers
               </div>
-              <div className="truncate text-[0.69rem] font-medium tracking-[0.22em] text-[#7a6c57] uppercase">
+              <div className="mt-1.5 truncate text-[0.69rem] font-medium tracking-[0.22em] text-[#7a6c57] uppercase">
                 Premium Plant Nutrition
               </div>
             </div>
           </Link>
 
           <div
-            className="relative hidden flex-1 items-center justify-center md:flex"
+            className="relative hidden items-center justify-center md:flex md:justify-self-center"
             onMouseLeave={() => setActiveMenu(null)}
           >
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-7">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -148,7 +156,7 @@ export default function Header() {
                   </svg>
                   <span
                     className={`absolute right-0 bottom-0 left-0 h-0.5 origin-left rounded-full bg-[#7e8d2f] transition-transform duration-300 ${
-                      pathname === item.href || activeMenu === item.href
+                      isNavActive(item.href) || activeMenu === item.href
                         ? "scale-x-100"
                         : "scale-x-0 group-hover:scale-x-100"
                     }`}
@@ -208,28 +216,26 @@ export default function Header() {
                         <Link
                           key={`${activeItem.href}-${link.label}`}
                           href={link.href}
-                          className="mega-menu-link group rounded-2xl border border-[#e4dccb] bg-[#fdfaf4] px-4 py-4 transition-all duration-300 hover:border-[#d7cfbb] hover:bg-white hover:shadow-[0_16px_30px_rgba(91,74,38,0.08)]"
+                          className="mega-menu-link button-arrow button-arrow--light group min-h-[4rem] rounded-2xl border border-[#e4dccb] bg-[#fdfaf4] px-4 py-4 text-left transition-all duration-300 hover:border-[#d7cfbb] hover:bg-white hover:shadow-[0_16px_30px_rgba(91,74,38,0.08)]"
                         >
-                          <div className="flex items-center justify-between gap-3">
-                            <span className="text-[1rem] font-semibold text-[#2c3f23]">
-                              {link.label}
-                            </span>
-                            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f2ecde] text-[#8b6835] transition-transform duration-300 group-hover:translate-x-1">
-                              <svg
-                                className="h-4 w-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M9 5l7 7-7 7"
-                                />
-                              </svg>
-                            </span>
-                          </div>
+                          <span className="text-[1rem] font-semibold text-[#2c3f23]">
+                            {link.label}
+                          </span>
+                          <span className="button-arrow__icon" aria-hidden="true">
+                            <svg
+                              className="h-4 w-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 5l7 7-7 7"
+                              />
+                            </svg>
+                          </span>
                         </Link>
                       ))}
                     </div>
@@ -239,16 +245,16 @@ export default function Header() {
             )}
           </div>
 
-          <div className="hidden items-center gap-4 md:flex">
+          <div className="hidden items-center justify-end gap-3 md:flex md:min-w-[280px] md:justify-self-end">
             <Link
               href="/contact"
-              className="text-sm font-semibold text-[#6a6558] transition-colors duration-300 hover:text-[#2c3f23]"
+              className="text-sm font-semibold whitespace-nowrap text-[#6a6558] transition-colors duration-300 hover:text-[#2c3f23]"
             >
               Contact Sales
             </Link>
             <Link
-              href="/contact"
-              className="button-arrow button-arrow--solid group relative overflow-hidden rounded-xl bg-gradient-to-r from-[#2f5d31] to-[#7e8d2f] px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(47,93,49,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(47,93,49,0.3)]"
+              href="/get-started"
+              className="button-arrow button-arrow--solid group relative overflow-hidden rounded-xl bg-gradient-to-r from-[#2f5d31] to-[#7e8d2f] px-5 py-3.5 text-sm font-bold whitespace-nowrap text-white shadow-[0_8px_20px_rgba(47,93,49,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(47,93,49,0.3)]"
             >
               <span className="relative z-10">Get Started</span>
               <span
@@ -313,7 +319,7 @@ export default function Header() {
                     key={item.href}
                     href={item.href}
                     className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors duration-300 ${
-                      pathname === item.href
+                      isNavActive(item.href)
                         ? "bg-[#f6f0e3] text-[#2c3f23]"
                         : "text-[#655f51] hover:bg-[#faf6ed] hover:text-[#2c3f23]"
                     }`}
@@ -333,7 +339,7 @@ export default function Header() {
                   Contact Sales
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/get-started"
                   className="rounded-lg bg-[#2f5d31] px-4 py-3 text-center text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#244826]"
                   onClick={() => setIsMenuOpen(false)}
                 >

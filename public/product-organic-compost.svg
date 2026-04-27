@@ -1,0 +1,26 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" rx="56" fill="#F8F3E7"/>
+  <rect x="176" y="120" width="448" height="720" rx="44" fill="url(#bag)"/>
+  <text x="400" y="242" text-anchor="middle" fill="#F7F1E3" font-size="38" font-family="Arial, sans-serif" font-weight="700">AgriAce</text>
+  <text x="400" y="314" text-anchor="middle" fill="#F7F1E3" font-size="58" font-family="Arial, sans-serif" font-weight="700">Organic</text>
+  <text x="400" y="376" text-anchor="middle" fill="#F7F1E3" font-size="58" font-family="Arial, sans-serif" font-weight="700">Compost</text>
+  <circle cx="400" cy="522" r="118" fill="#F8F4EA" fill-opacity="0.12"/>
+  <path d="M398 618C430 560 508 542 530 458C478 466 440 494 418 540C422 444 498 376 492 290C428 330 386 408 386 492C350 430 284 394 214 398C248 468 338 484 376 556C326 528 258 532 204 584C292 616 348 608 398 618Z" fill="#CBE089"/>
+  <path d="M402 610C422 560 474 536 490 480C456 486 430 506 414 538C418 472 466 428 462 374C420 400 392 452 392 506C368 466 326 442 280 444C302 490 362 500 388 548C356 530 312 532 276 566C334 586 370 582 402 610Z" fill="#F2D790"/>
+  <g fill="#F7F1E3" font-family="Arial, sans-serif" font-size="28">
+    <text x="240" y="736">Soil enrichment</text>
+    <text x="240" y="788">Organic matter boost</text>
+    <text x="240" y="840">Eco-friendly application</text>
+  </g>
+  <g fill="#F0CF6A">
+    <circle cx="214" cy="726" r="10"/>
+    <circle cx="214" cy="778" r="10"/>
+    <circle cx="214" cy="830" r="10"/>
+  </g>
+  <defs>
+    <linearGradient id="bag" x1="400" y1="120" x2="400" y2="840" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#24733B"/>
+      <stop offset="1" stop-color="#2F5D31"/>
+    </linearGradient>
+  </defs>
+</svg>

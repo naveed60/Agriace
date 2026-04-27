@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import HeroBackgroundCarousel from "@/components/home/HeroBackgroundCarousel";
 import Reveal from "@/components/home/Reveal";
+import TestimonialsCarousel from "@/components/home/TestimonialsCarousel";
 
 const featureCards = [
   {
@@ -10,7 +12,8 @@ const featureCards = [
     iconBg: "bg-[#2f5d31]",
     iconPath: "M5 13l4 4L19 7",
     kicker: "Program foundation",
-    footer: "Built to stabilize soil condition before intensive feeding starts.",
+    footer:
+      "Built to stabilize soil condition before intensive feeding starts.",
   },
   {
     title: "Faster visible response",
@@ -84,67 +87,143 @@ const fieldStats = [
   },
 ];
 
-const heroPoints = [
-  "Field-ready formulations with stable quality",
-  "Dealer-ready product positioning",
-  "Premium systems for serious crop programs",
+const heroSlides = [
+  {
+    src: "/hero-crop-growth.jpg",
+    alt: "Young crop growth in fertile soil",
+    mediaWrapperClassName: "inset-0",
+    imageClassName: "object-cover object-center opacity-[0.92]",
+  },
+  {
+    src: "/hero-hand-fertilizer.webp",
+    alt: "Hand applying fertilizer near young crops",
+    mediaWrapperClassName: "inset-0",
+    imageClassName: "object-cover object-center opacity-[0.9]",
+  },
+  {
+    src: "/hero-farmer-field.jpg",
+    alt: "Farmer spreading fertilizer across the field",
+    mediaWrapperClassName: "inset-0",
+    imageClassName: "object-cover object-center opacity-[0.9]",
+  },
+];
+
+const ctaFocusAreas = [
+  "Grower programs",
+  "Dealer positioning",
+  "Distributor-ready product stories",
+];
+
+const ctaSteps = [
+  {
+    label: "01",
+    title: "Define the crop and program target",
+    detail:
+      "Start with the product system, field need, or commercial objective you want to strengthen.",
+  },
+  {
+    label: "02",
+    title: "Match the right nutrition category",
+    detail:
+      "Align compost, NPK, liquid inputs, or amendments to the program instead of forcing a one-size-fit line.",
+  },
+  {
+    label: "03",
+    title: "Move forward with a sharper sales path",
+    detail:
+      "Use the contact or product routes below to continue with a clearer next step.",
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "AgriAce products gave us a cleaner response in the field and made it easier to explain value to growers who compare every input carefully.",
+    name: "Muhammad Imran",
+    role: "Dealer Partner",
+    location: "Punjab",
+    accent: "from-[#2f5d31] to-[#7e8d2f]",
+  },
+  {
+    quote:
+      "The soil conditioning line helped us improve crop consistency and confidence across repeat applications during the season.",
+    name: "Ahmad Raza",
+    role: "Progressive Grower",
+    location: "Lahore Region",
+    accent: "from-[#7e8d2f] to-[#b98a2c]",
+  },
+  {
+    quote:
+      "What stands out is the premium presentation with dependable field performance. That combination helps us position the brand far more effectively.",
+    name: "Sajid Hussain",
+    role: "Distributor",
+    location: "Central Punjab",
+    accent: "from-[#b98a2c] to-[#8b6835]",
+  },
+  {
+    quote:
+      "The nutrient program performed well under tight timing windows, and the product presentation helped our sales conversations feel more premium.",
+    name: "Usman Tariq",
+    role: "Regional Dealer",
+    location: "Faisalabad",
+    accent: "from-[#2f5d31] to-[#58774a]",
+  },
+  {
+    quote:
+      "We saw stronger consistency in crop response and far fewer objections once growers understood the soil-first positioning of the range.",
+    name: "Ali Shan",
+    role: "Farm Manager",
+    location: "South Punjab",
+    accent: "from-[#7e8d2f] to-[#98a83b]",
+  },
+  {
+    quote:
+      "AgriAce gave us a more credible product story for dealers and distributors who want both field trust and premium shelf perception.",
+    name: "Rana Shahbaz",
+    role: "Channel Partner",
+    location: "Lahore",
+    accent: "from-[#b98a2c] to-[#cf9e34]",
+  },
 ];
 
 export default function Home() {
   return (
     <div className="home-page flex flex-col overflow-hidden bg-[#f8f5ec]">
-      <section className="hero-section relative isolate overflow-hidden bg-[linear-gradient(135deg,#fbf8f0_0%,#f3ecdc_52%,#ebe1cb_100%)] py-18 lg:py-24">
-        <div className="hero-orb hero-orb-left" aria-hidden="true" />
-        <div className="hero-orb hero-orb-right" aria-hidden="true" />
-        <div className="hero-grid" aria-hidden="true" />
+      <section className="hero-section relative isolate overflow-hidden">
+        <HeroBackgroundCarousel slides={heroSlides} />
+        <div
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,7,4,0.92)_0%,rgba(4,7,4,0.82)_30%,rgba(4,7,4,0.46)_56%,rgba(4,7,4,0.32)_100%)]"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-y-0 left-0 w-full bg-[radial-gradient(circle_at_left_center,rgba(0,0,0,0.26),transparent_48%)] lg:w-[62%]"
+          aria-hidden="true"
+        />
 
         <div className="relative container mx-auto px-6">
-          <div className="grid items-center gap-16 lg:grid-cols-[1.02fr_0.98fr]">
-            <div className="relative z-10">
+          <div className="flex min-h-[calc(58vh-5rem)] items-center justify-center py-8 lg:min-h-[calc(52vh-5rem)] lg:py-10">
+            <div className="relative z-10 max-w-[34rem] text-center">
               <Reveal className="mb-5" delay={0}>
-                <div className="inline-flex items-center gap-3 rounded-full border border-[#d8d1ba] bg-white/92 px-4 py-2 text-sm font-semibold tracking-[0.18em] text-[#5b6d27] uppercase shadow-[0_12px_30px_rgba(91,74,38,0.08)] backdrop-blur-sm">
+                <div className="inline-flex items-center gap-3 rounded-full border border-white/16 bg-white/10 px-4 py-2 text-sm font-semibold tracking-[0.18em] text-[#edf2de] uppercase shadow-[0_12px_30px_rgba(0,0,0,0.2)] backdrop-blur-md">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#b98a2c] shadow-[0_0_18px_rgba(185,138,44,0.45)]" />
                   Premium plant nutrition
                 </div>
               </Reveal>
 
-              <Reveal delay={80}>
-                <div className="mb-7 flex max-w-xl items-center gap-4 rounded-[1.6rem] border border-[#ddd4c1] bg-white/86 px-4 py-4 shadow-[0_18px_34px_rgba(91,74,38,0.08)] backdrop-blur-sm">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#e2d8c5] bg-[#faf6ed]">
-                    <Image
-                      src="/product-logo.jpeg"
-                      alt="AgriAce Fertilizers mark"
-                      width={56}
-                      height={56}
-                      className="h-11 w-11 rounded-xl object-cover"
-                      priority
-                    />
-                  </div>
-                  <div>
-                    <div className="text-[0.7rem] font-semibold tracking-[0.24em] text-[#8b6835] uppercase">
-                      AgriAce Signature Range
-                    </div>
-                    <div className="mt-1 text-base font-semibold text-[#2c3f23]">
-                      Product-led fertilizer branding with field-ready quality
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-
-              <Reveal delay={160}>
-                <h1 className="max-w-3xl text-4xl leading-[0.96] font-bold tracking-[-0.045em] text-[#23371f] sm:text-5xl lg:text-[4.55rem]">
-                  Premium nutrition
-                  <span className="mt-1 block text-[#23371f]">
-                    engineered for healthier soil
+              <Reveal delay={100}>
+                <h1 className="mx-auto max-w-3xl text-4xl leading-[0.94] font-bold tracking-[-0.045em] text-white sm:text-5xl lg:text-[4.25rem]">
+                  Premium nutrition engineered
+                  <span className="mt-1 block text-white">
+                    for healthier soil and
                   </span>
-                  <span className="mt-1 block text-[#7e8d2f]">
-                    and higher-yield fields
+                  <span className="mt-1 block text-[#d6df8a]">
+                    higher-yield fields
                   </span>
                 </h1>
               </Reveal>
 
-              <Reveal delay={240}>
-                <p className="mt-5 max-w-2xl text-lg leading-8 text-[#5e5a4c] sm:text-[1.16rem]">
+              <Reveal delay={180}>
+                <p className="mx-auto mt-4 max-w-xl text-[1.02rem] leading-8 text-[#ece7dc] sm:text-[1.08rem]">
                   AgriAce Fertilizers delivers professional-grade soil
                   conditioners, nutrient programs, and crop support inputs built
                   for growers who expect stronger field response and cleaner
@@ -152,58 +231,11 @@ export default function Home() {
                 </p>
               </Reveal>
 
-              <Reveal delay={320}>
-                <div className="mt-7 rounded-[2rem] border border-[#d5ccb8] bg-[linear-gradient(135deg,#23371f_0%,#314d29_42%,#5d742e_100%)] p-5 text-white shadow-[0_24px_58px_rgba(27,44,23,0.18)] sm:p-6">
-                  <div className="grid gap-5 lg:grid-cols-[1.04fr_0.96fr]">
-                    <div>
-                      <div className="text-[0.72rem] font-semibold tracking-[0.24em] text-[#dfe7c8] uppercase">
-                        Brand story
-                      </div>
-                      <p className="mt-3 max-w-lg text-xl leading-8 font-semibold text-white [text-wrap:balance]">
-                        A fertilizer range positioned to feel premium in market
-                        and dependable in the field.
-                      </p>
-                    </div>
-                    <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                      {heroPoints.map((point) => (
-                        <div
-                          key={point}
-                          className="rounded-[1.3rem] border border-white/10 bg-white/10 px-4 py-3 text-sm font-medium text-[#f2f0e6] backdrop-blur-sm"
-                        >
-                          {point}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-
-              <Reveal delay={360}>
-                <div className="mt-8 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
-                  {fieldStats.map((item) => (
-                    <div
-                      key={item.label}
-                      className="rounded-[1.6rem] border border-[#ddd5c2] bg-white/92 px-5 py-5 shadow-[0_18px_34px_rgba(91,74,38,0.08)] backdrop-blur-sm"
-                    >
-                      <div className="text-[0.72rem] font-semibold tracking-[0.18em] text-[#8b6835] uppercase">
-                        {item.label}
-                      </div>
-                      <div className="mt-2 text-[1.6rem] leading-tight font-bold text-[#243821]">
-                        {item.value}
-                      </div>
-                      <div className="mt-2 text-sm leading-6 text-[#6f6a58]">
-                        {item.detail}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </Reveal>
-
-              <Reveal delay={430}>
-                <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <Reveal delay={260}>
+                <div className="mt-8 flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:justify-center">
                   <Link
                     href="/products"
-                    className="btn-primary button-arrow button-arrow--solid text-center text-base shadow-[0_18px_38px_rgba(47,93,49,0.22)]"
+                    className="btn-primary button-arrow button-arrow--solid min-w-[18.5rem] text-center text-base shadow-[0_20px_44px_rgba(0,0,0,0.28)] ring-1 ring-white/10"
                   >
                     <span>Explore Product Systems</span>
                     <span className="button-arrow__icon" aria-hidden="true">
@@ -224,7 +256,7 @@ export default function Home() {
                   </Link>
                   <Link
                     href="/contact"
-                    className="button-arrow button-arrow--light rounded-full border border-[#d7d0bc] bg-white/92 px-6 py-3 text-center font-semibold text-[#2f5d31] transition-all duration-300 hover:-translate-y-0.5"
+                    className="button-arrow button-arrow--glass min-w-[15rem] rounded-full border border-white/16 bg-white/10 px-6 py-3 text-center font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
                   >
                     <span>Talk to Sales</span>
                     <span className="button-arrow__icon" aria-hidden="true">
@@ -246,80 +278,27 @@ export default function Home() {
                 </div>
               </Reveal>
 
-              <Reveal delay={480}>
-                <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-[#ddd4c1] bg-white/88 px-4 py-2 text-sm text-[#655f51] shadow-[0_12px_24px_rgba(91,74,38,0.06)]">
-                  <span className="text-[#8b6835]">●</span>
-                  Designed for soil conditioners, balanced nutrient blends, and
-                  crop support programs that need stronger visual credibility.
+              <Reveal delay={340}>
+                <div className="mx-auto mt-8 grid max-w-[34rem] grid-cols-1 gap-3 text-left sm:grid-cols-3">
+                  {fieldStats.map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-[1.45rem] border border-white/14 bg-white/12 px-4 py-4 shadow-[0_18px_34px_rgba(0,0,0,0.16)] backdrop-blur-md"
+                    >
+                      <div className="text-[0.72rem] font-semibold tracking-[0.18em] text-[#d6caad] uppercase">
+                        {item.label}
+                      </div>
+                      <div className="mt-2 text-[1.45rem] leading-tight font-bold text-white">
+                        {item.value}
+                      </div>
+                      <div className="mt-1.5 text-sm leading-6 text-[#e7e2d5]">
+                        {item.detail}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </Reveal>
             </div>
-
-            <Reveal className="relative z-10" delay={180}>
-              <div className="hero-visual-shell relative mx-auto max-w-xl">
-                <div className="hero-pulse-ring" aria-hidden="true" />
-                <div
-                  className="hero-pulse-ring hero-pulse-ring-delay"
-                  aria-hidden="true"
-                />
-
-                <div className="hero-visual-card rounded-[2.1rem] border border-[#e2dac8] bg-white/95 p-5 shadow-[0_30px_90px_rgba(91,74,38,0.14)] backdrop-blur-sm sm:p-7">
-                  <div className="rounded-[1.6rem] bg-[linear-gradient(180deg,#faf7ef_0%,#eee4cf_100%)] p-3">
-                    <Image
-                      src="/product-packaging.jpeg"
-                      alt="CrownHuma Potassium Humate Product"
-                      width={600}
-                      height={800}
-                      className="w-full rounded-[1.25rem] object-cover"
-                      priority
-                    />
-                  </div>
-
-                  <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                    <div className="rounded-[1.2rem] border border-[#e6ddca] bg-[#fcfaf4] px-4 py-3">
-                      <div className="text-[0.68rem] font-semibold tracking-[0.18em] text-[#8b6835] uppercase">
-                        Soil conditioning
-                      </div>
-                      <div className="mt-2 font-semibold text-[#243821]">
-                        Root-zone support
-                      </div>
-                    </div>
-                    <div className="rounded-[1.2rem] border border-[#e6ddca] bg-[#fcfaf4] px-4 py-3">
-                      <div className="text-[0.68rem] font-semibold tracking-[0.18em] text-[#8b6835] uppercase">
-                        Crop feeding
-                      </div>
-                      <div className="mt-2 font-semibold text-[#243821]">
-                        Balanced uptake
-                      </div>
-                    </div>
-                    <div className="rounded-[1.2rem] border border-[#e6ddca] bg-[#fcfaf4] px-4 py-3">
-                      <div className="text-[0.68rem] font-semibold tracking-[0.18em] text-[#8b6835] uppercase">
-                        Brand fit
-                      </div>
-                      <div className="mt-2 font-semibold text-[#243821]">
-                        Premium positioning
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="hero-float-card hero-float-card-top rounded-2xl border border-[#2f5d31]/15 bg-[#2f5d31] px-5 py-4 text-white shadow-[0_20px_45px_rgba(47,93,49,0.24)]">
-                  <div className="text-sm text-[#eef2df]">
-                    Performance tested
-                  </div>
-                  <div className="mt-1 text-2xl font-bold">Rapid uptake</div>
-                </div>
-
-                <div className="hero-float-card hero-float-card-bottom rounded-2xl border border-[#e1d9c6] bg-white/96 px-5 py-4 shadow-[0_18px_36px_rgba(91,74,38,0.12)] backdrop-blur-md">
-                  <div className="text-sm font-medium text-[#7a6c57]">
-                    Trusted formulation
-                  </div>
-                  <div className="mt-1 text-2xl font-bold text-[#2c3f23]">
-                    Soil health + yield
-                  </div>
-                </div>
-              </div>
-            </Reveal>
           </div>
         </div>
       </section>
@@ -336,35 +315,60 @@ export default function Home() {
 
         <div className="relative container mx-auto px-6">
           <Reveal>
-            <div className="rounded-[2.4rem] border border-[#d7cfbd] bg-[linear-gradient(135deg,#23371f_0%,#2f4c29_50%,#6c7c34_100%)] px-8 py-10 text-white shadow-[0_28px_70px_rgba(27,44,23,0.18)] lg:px-12">
-              <div className="grid items-end gap-8 lg:grid-cols-[1.08fr_0.92fr]">
-                <div>
-                  <p className="text-sm font-semibold tracking-[0.22em] text-[#d9e4bd] uppercase">
+            <div className="relative mx-auto max-w-[86rem] overflow-hidden rounded-[2.3rem] border border-[#d7cfbd] bg-[linear-gradient(135deg,#23371f_0%,#2c4827_42%,#62722f_100%)] px-8 py-7 text-white shadow-[0_28px_70px_rgba(27,44,23,0.18)] lg:px-12 lg:py-8">
+              <div
+                className="absolute inset-x-10 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(233,241,201,0.85),transparent)]"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(215,226,164,0.18),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.05),transparent_42%)]"
+                aria-hidden="true"
+              />
+              <div className="relative grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-8">
+                <div className="max-w-[48rem]">
+                  <p className="inline-flex items-center rounded-full border border-white/12 bg-white/8 px-3 py-1.5 text-[0.68rem] font-semibold tracking-[0.24em] text-[#eef4d6] uppercase shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                     Why AgriAce
                   </p>
-                  <h2 className="mt-4 max-w-3xl text-4xl leading-[1.02] font-bold tracking-[-0.04em] lg:text-[3.35rem]">
-                    Fertilizer solutions shaped for growers who buy on proof,
-                    not promises.
+                  <h2 className="mt-4 max-w-[46rem] text-4xl leading-[1.05] font-bold tracking-[-0.045em] lg:text-[2.55rem]">
+                    <span className="lg:hidden">
+                      Fertilizer solutions shaped for growers who buy on{" "}
+                      <span className="text-[#eef4b0]">proof</span>, not
+                      promises.
+                    </span>
+                    <span className="hidden whitespace-nowrap lg:block">
+                      Fertilizer solutions shaped for growers
+                    </span>
+                    <span className="hidden whitespace-nowrap lg:block">
+                      who buy on <span className="text-[#eef4b0]">proof</span>,
+                      not promises.
+                    </span>
                   </h2>
                 </div>
-                <p className="max-w-xl text-lg leading-8 text-[#eff3e4]/88">
-                  The portfolio is designed around field response, commercial
-                  consistency, and a cleaner premium story from first soil
-                  application through final crop support.
-                </p>
+                <div className="lg:self-center">
+                  <div className="max-w-[20rem] rounded-[1.5rem] border border-white/10 bg-white/8 px-5 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:bg-white/11 hover:shadow-[0_20px_45px_rgba(16,30,12,0.16)]">
+                    <p className="text-[0.72rem] font-semibold tracking-[0.22em] text-[#d9e4bd] uppercase">
+                      Built for results
+                    </p>
+                    <p className="mt-3 text-[1rem] leading-7 text-[#eff3e4]/88">
+                      The portfolio is designed around field response,
+                      commercial consistency, and a cleaner premium story from
+                      first soil application through final crop support.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </Reveal>
 
           <Reveal delay={80}>
-            <div className="mx-auto mt-8 flex max-w-4xl flex-wrap justify-center gap-3">
-              <div className="rounded-full border border-[#e3d9c6] bg-white/90 px-4 py-2 text-sm font-medium text-[#655f51] shadow-[0_10px_24px_rgba(91,74,38,0.06)]">
+            <div className="mx-auto mt-6 flex max-w-4xl flex-wrap justify-center gap-3">
+              <div className="rounded-full border border-[#e3d9c6] bg-white/94 px-4 py-2 text-sm font-medium text-[#655f51] shadow-[0_10px_24px_rgba(91,74,38,0.06)]">
                 Product-led formulation
               </div>
-              <div className="rounded-full border border-[#e3d9c6] bg-white/90 px-4 py-2 text-sm font-medium text-[#655f51] shadow-[0_10px_24px_rgba(91,74,38,0.06)]">
+              <div className="rounded-full border border-[#e3d9c6] bg-white/94 px-4 py-2 text-sm font-medium text-[#655f51] shadow-[0_10px_24px_rgba(91,74,38,0.06)]">
                 Cleaner response story
               </div>
-              <div className="rounded-full border border-[#e3d9c6] bg-white/90 px-4 py-2 text-sm font-medium text-[#655f51] shadow-[0_10px_24px_rgba(91,74,38,0.06)]">
+              <div className="rounded-full border border-[#e3d9c6] bg-white/94 px-4 py-2 text-sm font-medium text-[#655f51] shadow-[0_10px_24px_rgba(91,74,38,0.06)]">
                 Premium brand consistency
               </div>
             </div>
@@ -502,9 +506,8 @@ export default function Home() {
                 Product lines matched to serious crop development
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#655f51]">
-                A portfolio shaped around premium soil conditioning,
-                dependable nutrient delivery, and practical agricultural use in
-                the field.
+                A portfolio shaped around premium soil conditioning, dependable
+                nutrient delivery, and practical agricultural use in the field.
               </p>
             </div>
           </Reveal>
@@ -602,7 +605,10 @@ export default function Home() {
                         <div
                           className={`absolute inset-0 bg-gradient-to-br ${product.accentGlow} opacity-95`}
                         />
-                        <div className="product-card-sheen" aria-hidden="true" />
+                        <div
+                          className="product-card-sheen"
+                          aria-hidden="true"
+                        />
                         <svg
                           className="relative z-10 h-9 w-9 text-white transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6"
                           fill="currentColor"
@@ -682,11 +688,38 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#1f311d] pt-10 pb-0">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f7f2e7_0%,#efe6d6_100%)] py-18">
         <div
-          className="absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)]"
+          className="absolute top-12 left-[6%] h-52 w-52 rounded-full bg-[rgba(185,138,44,0.12)] blur-3xl"
           aria-hidden="true"
         />
+        <div
+          className="absolute right-[8%] bottom-10 h-64 w-64 rounded-full bg-[rgba(47,93,49,0.10)] blur-3xl"
+          aria-hidden="true"
+        />
+
+        <div className="relative container mx-auto px-6">
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-sm font-semibold tracking-[0.22em] text-[#8b6835] uppercase">
+                Testimonials
+              </p>
+              <h2 className="mt-4 text-4xl leading-[1.03] font-bold tracking-[-0.04em] text-[#2c3f23]">
+                Trusted by growers, dealers, and distribution partners
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#655f51]">
+                Feedback from agricultural partners who value cleaner product
+                positioning, dependable field response, and stronger commercial
+                confidence.
+              </p>
+            </div>
+          </Reveal>
+
+          <TestimonialsCarousel testimonials={testimonials} />
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f8f4ea_0%,#efe7d5_100%)] py-12 lg:py-14">
         <div
           className="absolute top-16 left-[8%] h-56 w-56 rounded-full bg-[rgba(185,138,44,0.16)] blur-3xl"
           aria-hidden="true"
@@ -697,11 +730,15 @@ export default function Home() {
         />
 
         <div className="relative container mx-auto px-6">
-          <div className="rounded-t-[2.5rem] border border-white/10 bg-[linear-gradient(135deg,#315f31_0%,#56752f_46%,#8a7a2f_100%)] px-8 py-14 shadow-[0_28px_70px_rgba(10,18,10,0.28)] lg:px-14 lg:py-16">
-            <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="relative overflow-hidden rounded-[2.5rem] border border-[rgba(236,227,203,0.12)] bg-[linear-gradient(135deg,#213828_0%,#2d4a34_42%,#61612f_100%)] px-8 py-14 shadow-[0_32px_80px_rgba(12,18,12,0.34)] lg:px-14 lg:py-16">
+            <div
+              className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(217,188,108,0.14),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.04),transparent_36%)]"
+              aria-hidden="true"
+            />
+            <div className="relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
               <div>
                 <Reveal>
-                  <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold tracking-[0.22em] text-[#f2ead7] uppercase backdrop-blur-sm">
+                  <div className="inline-flex items-center gap-3 rounded-full border border-[rgba(240,232,210,0.16)] bg-[rgba(255,248,232,0.08)] px-4 py-2 text-sm font-semibold tracking-[0.22em] text-[#f2ead7] uppercase backdrop-blur-sm">
                     <span className="h-2 w-2 rounded-full bg-[#f0cf6a]" />
                     Grow With Confidence
                   </div>
@@ -715,41 +752,77 @@ export default function Home() {
 
                 <Reveal delay={160}>
                   <p className="mt-5 max-w-2xl text-lg leading-8 text-[#f5f0e4]/88 lg:text-[1.12rem]">
-                    Choose a fertilizer partner focused on cleaner formulations,
-                    sharper positioning, and dependable agricultural results
-                    across premium soil and crop nutrition programs.
+                    Choose a fertilizer partner built for premium soil and crop
+                    nutrition programs, clearer commercial conversations, and a
+                    more dependable path from inquiry to product selection.
                   </p>
                 </Reveal>
 
                 <Reveal delay={220}>
                   <div className="mt-7 flex flex-wrap gap-3">
-                    <div className="rounded-full border border-white/12 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm">
-                      Premium agricultural positioning
-                    </div>
-                    <div className="rounded-full border border-white/12 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm">
-                      Cleaner product communication
-                    </div>
+                    {ctaFocusAreas.map((item) => (
+                      <div
+                        key={item}
+                        className="rounded-full border border-[rgba(240,232,210,0.14)] bg-[rgba(255,248,232,0.08)] px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm"
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </Reveal>
+
+                <Reveal delay={280}>
+                  <div className="mt-7 grid gap-3 sm:grid-cols-3">
+                    {ctaSteps.map((step) => (
+                      <div
+                        key={step.label}
+                        className="rounded-[1.35rem] border border-[rgba(240,232,210,0.12)] bg-[rgba(255,248,232,0.07)] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm"
+                      >
+                        <div className="text-[0.68rem] font-semibold tracking-[0.22em] text-[#f0e1b2] uppercase">
+                          Step {step.label}
+                        </div>
+                        <div className="mt-2 text-[1rem] leading-6 font-semibold text-white">
+                          {step.title}
+                        </div>
+                        <p className="mt-2 text-sm leading-6 text-[#f3eee1]/82">
+                          {step.detail}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </Reveal>
               </div>
 
               <Reveal delay={180}>
-                <div className="rounded-[2rem] border border-white/12 bg-[rgba(255,255,255,0.09)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md lg:p-7">
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                    <div className="rounded-[1.4rem] border border-white/10 bg-white/10 px-5 py-4">
-                      <div className="text-[0.72rem] font-semibold tracking-[0.2em] text-[#f2ead7] uppercase">
-                        Product focus
+                <div className="rounded-[2rem] border border-[rgba(240,232,210,0.14)] bg-[linear-gradient(180deg,rgba(255,248,232,0.1)_0%,rgba(255,248,232,0.07)_100%)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md lg:p-7">
+                  <div className="rounded-[1.45rem] border border-[rgba(240,232,210,0.1)] bg-[rgba(19,28,17,0.18)] px-5 py-5">
+                    <div className="text-[0.72rem] font-semibold tracking-[0.2em] text-[#f2ead7] uppercase">
+                      Product focus
+                    </div>
+                    <div className="mt-2 text-2xl font-bold text-white">
+                      Soil + crop nutrition
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-[#f3eee1]/80">
+                      Start with the category that best fits the program and
+                      move into products with a cleaner commercial story.
+                    </p>
+                  </div>
+
+                  <div className="mt-4 grid gap-3">
+                    <div className="rounded-[1.3rem] border border-[rgba(240,232,210,0.12)] bg-[rgba(255,248,232,0.09)] px-4 py-4">
+                      <div className="text-[0.68rem] font-semibold tracking-[0.2em] text-[#f0e1b2] uppercase">
+                        Best for
                       </div>
-                      <div className="mt-2 text-2xl font-bold text-white">
-                        Soil + crop nutrition
+                      <div className="mt-2 text-lg leading-7 font-semibold text-white">
+                        Growers, dealers, and serious crop input programs
                       </div>
                     </div>
-                    <div className="rounded-[1.4rem] border border-white/10 bg-white/10 px-5 py-4">
-                      <div className="text-[0.72rem] font-semibold tracking-[0.2em] text-[#f2ead7] uppercase">
+                    <div className="rounded-[1.3rem] border border-[rgba(240,232,210,0.12)] bg-[rgba(255,248,232,0.09)] px-4 py-4">
+                      <div className="text-[0.68rem] font-semibold tracking-[0.2em] text-[#f0e1b2] uppercase">
                         Next step
                       </div>
-                      <div className="mt-2 text-2xl font-bold text-white">
-                        Start with AgriAce
+                      <div className="mt-2 text-lg leading-7 font-semibold text-white">
+                        Start the conversation with AgriAce
                       </div>
                     </div>
                   </div>
@@ -778,7 +851,7 @@ export default function Home() {
                     </Link>
                     <Link
                       href="/products"
-                      className="button-arrow button-arrow--glass inline-flex items-center justify-center rounded-full border border-white/18 bg-white/10 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
+                      className="button-arrow button-arrow--glass inline-flex items-center justify-center rounded-full border border-[rgba(240,232,210,0.18)] bg-[rgba(255,248,232,0.08)] px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
                     >
                       <span>Explore Products</span>
                       <span className="button-arrow__icon" aria-hidden="true">
@@ -797,6 +870,17 @@ export default function Home() {
                         </svg>
                       </span>
                     </Link>
+                  </div>
+
+                  <div className="mt-5 rounded-[1.3rem] border border-[rgba(240,232,210,0.1)] bg-[rgba(18,26,15,0.16)] px-4 py-4">
+                    <div className="text-[0.68rem] font-semibold tracking-[0.2em] text-[#f0e1b2] uppercase">
+                      Conversion path
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-[#f3eee1]/80">
+                      Use the contact route if you need a direct discussion, or
+                      review the product range first if you want to qualify the
+                      right category before reaching out.
+                    </p>
                   </div>
                 </div>
               </Reveal>

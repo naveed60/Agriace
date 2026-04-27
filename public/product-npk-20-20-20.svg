@@ -1,0 +1,31 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" rx="56" fill="#F8F3E7"/>
+  <rect x="170" y="120" width="460" height="720" rx="42" fill="url(#bag)"/>
+  <path d="M230 120H570L530 76H270L230 120Z" fill="#35552F"/>
+  <rect x="230" y="194" width="340" height="74" rx="20" fill="#F7F1E3" fill-opacity="0.12"/>
+  <text x="400" y="238" text-anchor="middle" fill="#F7F1E3" font-size="38" font-family="Arial, sans-serif" font-weight="700">AgriAce</text>
+  <text x="400" y="286" text-anchor="middle" fill="#DDE7BE" font-size="20" font-family="Arial, sans-serif" letter-spacing="4">PREMIUM NUTRITION</text>
+  <rect x="248" y="344" width="304" height="168" rx="26" fill="#F8F4EA"/>
+  <text x="400" y="404" text-anchor="middle" fill="#2C3F23" font-size="54" font-family="Arial, sans-serif" font-weight="700">NPK</text>
+  <text x="400" y="464" text-anchor="middle" fill="#5B6D2F" font-size="66" font-family="Arial, sans-serif" font-weight="700">20-20-20</text>
+  <text x="400" y="535" text-anchor="middle" fill="#ECF4D2" font-size="28" font-family="Arial, sans-serif">Balanced fertilizer formula</text>
+  <rect x="242" y="584" width="316" height="52" rx="18" fill="#B98A2C"/>
+  <text x="400" y="618" text-anchor="middle" fill="#FFF8EA" font-size="24" font-family="Arial, sans-serif" font-weight="700">FOR FIELD PERFORMANCE</text>
+  <g fill="#F2EBD8">
+    <circle cx="268" cy="696" r="12"/>
+    <circle cx="268" cy="754" r="12"/>
+    <circle cx="268" cy="812" r="12"/>
+  </g>
+  <g fill="#F3EEDF" font-family="Arial, sans-serif" font-size="28">
+    <text x="300" y="705">Fast absorption</text>
+    <text x="300" y="763">Balanced nutrients</text>
+    <text x="300" y="821">Suitable for all crops</text>
+  </g>
+  <rect x="250" y="864" width="300" height="28" rx="14" fill="#D9E4BD" fill-opacity="0.4"/>
+  <defs>
+    <linearGradient id="bag" x1="400" y1="120" x2="400" y2="840" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2F5D31"/>
+      <stop offset="1" stop-color="#466A2D"/>
+    </linearGradient>
+  </defs>
+</svg>
