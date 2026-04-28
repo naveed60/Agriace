@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
+import { signIn } from "next-auth/react";
 
 type AuthMode = "login" | "signup";
 
@@ -15,12 +16,19 @@ const inputClassName =
 
 const formControlWrapClassName = "mx-auto w-[88%] sm:w-[84%] cursor-pointer";
 
-function SocialButtons() {
+function SocialButtons({
+  onGoogleClick,
+  disabled = false,
+}: {
+  onGoogleClick: () => void;
+  disabled?: boolean;
+}) {
   return (
     <div className="mt-8 flex justify-center gap-3">
       <button
         type="button"
-        className={socialButtonClassName}
+        disabled
+        className={`${socialButtonClassName} cursor-not-allowed opacity-50`}
         aria-label="Continue with Facebook"
       >
         <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -29,7 +37,9 @@ function SocialButtons() {
       </button>
       <button
         type="button"
-        className={socialButtonClassName}
+        disabled={disabled}
+        onClick={onGoogleClick}
+        className={`${socialButtonClassName} ${disabled ? "cursor-not-allowed opacity-70" : ""}`}
         aria-label="Continue with Google"
       >
         <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -41,7 +51,8 @@ function SocialButtons() {
       </button>
       <button
         type="button"
-        className={socialButtonClassName}
+        disabled
+        className={`${socialButtonClassName} cursor-not-allowed opacity-50`}
         aria-label="Continue with LinkedIn"
       >
         <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -53,8 +64,45 @@ function SocialButtons() {
 }
 
 function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleGoogleSignIn = () => {
+    const callbackUrl = `${window.location.origin}/`;
+    void signIn("google", { callbackUrl });
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setErrorMessage(null);
+    setIsSubmitting(true);
+
+    try {
+      const callbackUrl = `${window.location.origin}/`;
+      const result = await signIn("credentials", {
+        email: email.trim().toLowerCase(),
+        password,
+        redirect: false,
+        callbackUrl,
+      });
+
+      if (!result || result.error) {
+        setErrorMessage("Invalid email or password.");
+        return;
+      }
+
+      window.location.assign("/");
+    } catch {
+      setErrorMessage("Login failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <form className="mx-auto w-full max-w-md">
+    <form className="mx-auto w-full max-w-md" onSubmit={handleSubmit}>
       <div
         className=" rounded-full border border-[#e8dfcc] bg-white/80 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-[#7a6c57] mx-auto w-[88%] sm:w-[84%]"
       >
@@ -65,16 +113,36 @@ function LoginForm() {
         Sign in
       </h3>
 
-      <SocialButtons />
+      <SocialButtons onGoogleClick={handleGoogleSignIn} disabled={isSubmitting} />
 
       <p className="mt-6 text-center text-sm text-[#6a6457]">
         or use your account email
       </p>
 
       <div className={`${formControlWrapClassName} mt-6 space-y-4`}>
-        <input type="email" placeholder="Email" className={inputClassName} />
-        <input type="password" placeholder="Password" className={inputClassName} />
+        <input
+          type="email"
+          placeholder="Email"
+          className={inputClassName}
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          required
+          autoComplete="email"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className={inputClassName}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          required
+          autoComplete="current-password"
+        />
       </div>
+
+      {errorMessage ? (
+        <p className={`${formControlWrapClassName} mt-4 text-sm text-red-700`}>{errorMessage}</p>
+      ) : null}
 
       <button
         type="button"
@@ -85,17 +153,77 @@ function LoginForm() {
 
       <button
         type="submit"
-        className={`${formControlWrapClassName} mt-6 block rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(47,93,49,0.22)]`}
+        disabled={isSubmitting}
+        className={`${formControlWrapClassName} mt-6 block rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(47,93,49,0.22)] ${isSubmitting ? "cursor-not-allowed opacity-70" : ""}`}
       >
-        Sign In
+        {isSubmitting ? "Signing In..." : "Sign In"}
       </button>
     </form>
   );
 }
 
 function SignupForm() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const handleGoogleSignIn = () => {
+    const callbackUrl = `${window.location.origin}/`;
+    void signIn("google", { callbackUrl });
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    setIsSubmitting(true);
+
+    try {
+      const callbackUrl = `${window.location.origin}/`;
+      const registerResponse = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: fullName.trim(),
+          email: email.trim().toLowerCase(),
+          password,
+        }),
+      });
+
+      const payload = (await registerResponse.json().catch(() => null)) as
+        | { error?: string }
+        | null;
+
+      if (!registerResponse.ok) {
+        setErrorMessage(payload?.error ?? "Registration failed.");
+        return;
+      }
+
+      const signInResult = await signIn("credentials", {
+        email: email.trim().toLowerCase(),
+        password,
+        redirect: false,
+        callbackUrl,
+      });
+
+      if (!signInResult || signInResult.error) {
+        setSuccessMessage("Account created. Please sign in.");
+        return;
+      }
+
+      window.location.assign("/");
+    } catch {
+      setErrorMessage("Registration failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <form className="mx-auto w-full max-w-md">
+    <form className="mx-auto w-full max-w-md" onSubmit={handleSubmit}>
       <div
         className={`${formControlWrapClassName} rounded-full border border-[#e8dfcc] bg-white/80 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-[#7a6c57]`}
       >
@@ -106,23 +234,58 @@ function SignupForm() {
         Create Account
       </h3>
 
-      <SocialButtons />
+      <SocialButtons onGoogleClick={handleGoogleSignIn} disabled={isSubmitting} />
 
       <p className="mt-6 text-center text-sm text-[#6a6457]">
         or use your email for registration
       </p>
 
       <div className={`${formControlWrapClassName} mt-6 space-y-4`}>
-        <input type="text" placeholder="Name" className={inputClassName} />
-        <input type="email" placeholder="Email" className={inputClassName} />
-        <input type="password" placeholder="Password" className={inputClassName} />
+        <input
+          type="text"
+          placeholder="Name"
+          className={inputClassName}
+          value={fullName}
+          onChange={(event) => setFullName(event.target.value)}
+          required
+          autoComplete="name"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          className={inputClassName}
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          required
+          autoComplete="email"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className={inputClassName}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          required
+          minLength={8}
+          autoComplete="new-password"
+        />
       </div>
+
+      {errorMessage ? (
+        <p className={`${formControlWrapClassName} mt-4 text-sm text-red-700`}>{errorMessage}</p>
+      ) : null}
+      {successMessage ? (
+        <p className={`${formControlWrapClassName} mt-4 text-sm text-[#2f5d31]`}>
+          {successMessage}
+        </p>
+      ) : null}
 
       <button
         type="submit"
-        className={`${formControlWrapClassName} mt-6 block rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(47,93,49,0.22)]`}
+        disabled={isSubmitting}
+        className={`${formControlWrapClassName} mt-6 block rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(47,93,49,0.22)] ${isSubmitting ? "cursor-not-allowed opacity-70" : ""}`}
       >
-        Sign Up
+        {isSubmitting ? "Creating..." : "Sign Up"}
       </button>
     </form>
   );

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 const navItems = [
   {
@@ -74,6 +75,7 @@ const navItems = [
 
 export default function Header() {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
@@ -96,32 +98,34 @@ export default function Header() {
         : "text-[#6a6558] hover:text-[#2c3f23]",
     ].join(" ");
 
+  const isAuthenticated = status === "authenticated" && !!session?.user;
+  const profileName = session?.user?.name ?? "User";
+  const profileEmail = session?.user?.email ?? "";
+  const profileRole = session?.user?.role ?? "CUSTOMER";
+  const profileInitial = (profileName.trim().charAt(0) || "U").toUpperCase();
+
+  const handleSignOut = () => {
+    const callbackUrl = `${window.location.origin}/`;
+    void signOut({ callbackUrl });
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-[#ddd6c5]/80 bg-[#fbf8f0]/94 shadow-sm backdrop-blur-xl">
       <nav className="container mx-auto px-6">
         <div className="flex h-20 items-center justify-between gap-4 md:grid md:grid-cols-[minmax(280px,1fr)_auto_minmax(280px,1fr)] md:gap-6">
           <Link
             href="/"
-            className="flex min-w-0 flex-1 items-center gap-3 md:max-w-[320px] md:justify-self-start"
+            className="flex min-w-0 flex-1 items-center md:max-w-[320px] md:justify-self-start"
           >
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#ddd4c0] bg-white shadow-[0_8px_22px_rgba(91,74,38,0.08)]">
+            <div className="flex h-14 w-[170px] shrink-0 items-center justify-center md:h-16 md:w-[210px]">
               <Image
-                src="/product-logo.jpeg"
-                alt="AgriAce logo"
-                width={42}
-                height={42}
-                className="h-9 w-9 rounded-lg object-cover"
+                src="/logo_1.png"
+                alt="AgriAce Fertilizers logo"
+                width={258}
+                height={126}
+                className="h-12 w-full object-contain md:h-20"
                 priority
               />
-            </div>
-
-            <div className="min-w-0 leading-none">
-              <div className="truncate text-[1rem] font-semibold tracking-[0.01em] text-[#2c3f23]">
-                AgriAce Fertilizers
-              </div>
-              <div className="mt-1.5 truncate text-[0.69rem] font-medium tracking-[0.22em] text-[#7a6c57] uppercase">
-                Premium Plant Nutrition
-              </div>
             </div>
           </Link>
 
@@ -252,31 +256,68 @@ export default function Header() {
             >
               Contact Sales
             </Link>
-            <Link
-              href="/get-started"
-              className="button-arrow button-arrow--solid group relative overflow-hidden rounded-xl bg-gradient-to-r from-[#2f5d31] to-[#7e8d2f] px-5 py-3.5 text-sm font-bold whitespace-nowrap text-white shadow-[0_8px_20px_rgba(47,93,49,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(47,93,49,0.3)]"
-            >
-              <span className="relative z-10">Get Started</span>
-              <span
-                className="button-arrow__icon relative z-10"
-                aria-hidden="true"
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+            {isAuthenticated ? (
+              <div className="group/profile relative">
+                <button
+                  type="button"
+                  className="flex items-center gap-2 rounded-xl border border-[#ddd4c0] bg-white px-3 py-2 text-left shadow-[0_8px_20px_rgba(91,74,38,0.08)] transition-colors hover:bg-[#f8f4ea]"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </span>
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-            </Link>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] text-sm font-bold text-white">
+                    {profileInitial}
+                  </span>
+                  <span className="max-w-[120px] truncate text-sm font-semibold text-[#2c3f23]">
+                    {profileName}
+                  </span>
+                </button>
+                <div className="pointer-events-none absolute top-full right-0 z-50 mt-3 w-72 translate-y-1 opacity-0 transition-all duration-200 group-hover/profile:pointer-events-auto group-hover/profile:translate-y-0 group-hover/profile:opacity-100">
+                  <div className="rounded-2xl border border-[#ddd6c6]/80 bg-[rgba(255,251,244,0.98)] p-4 shadow-[0_24px_60px_rgba(91,74,38,0.16)] backdrop-blur-xl">
+                    <p className="text-xs font-semibold tracking-[0.2em] text-[#7a6c57] uppercase">
+                      Signed In
+                    </p>
+                    <p className="mt-2 text-sm font-semibold text-[#2c3f23]">
+                      {profileName}
+                    </p>
+                    <p className="mt-1 truncate text-xs text-[#6a6558]">{profileEmail}</p>
+                    <p className="mt-3 inline-flex rounded-full border border-[#d8d0bc] bg-white px-2.5 py-1 text-[0.65rem] font-semibold tracking-[0.18em] text-[#6a6558] uppercase">
+                      {profileRole.replaceAll("_", " ")}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={handleSignOut}
+                      className="mt-4 w-full rounded-xl bg-[#2f5d31] px-3 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#244826]"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link
+                href="/get-started"
+                className="button-arrow button-arrow--solid group relative overflow-hidden rounded-xl bg-gradient-to-r from-[#2f5d31] to-[#7e8d2f] px-5 py-3.5 text-sm font-bold whitespace-nowrap text-white shadow-[0_8px_20px_rgba(47,93,49,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(47,93,49,0.3)]"
+              >
+                <span className="relative z-10">Get Started</span>
+                <span
+                  className="button-arrow__icon relative z-10"
+                  aria-hidden="true"
+                >
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </span>
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+              </Link>
+            )}
           </div>
 
           <button
@@ -338,13 +379,36 @@ export default function Header() {
                 >
                   Contact Sales
                 </Link>
-                <Link
-                  href="/get-started"
-                  className="rounded-lg bg-[#2f5d31] px-4 py-3 text-center text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#244826]"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Get Started
-                </Link>
+                {isAuthenticated ? (
+                  <div className="rounded-lg border border-[#ddd4c0] bg-[#fdfaf4] p-3">
+                    <p className="text-xs font-semibold tracking-[0.2em] text-[#7a6c57] uppercase">
+                      Signed In
+                    </p>
+                    <p className="mt-2 text-sm font-semibold text-[#2c3f23]">{profileName}</p>
+                    <p className="mt-1 truncate text-xs text-[#655f51]">{profileEmail}</p>
+                    <p className="mt-2 text-[0.7rem] font-semibold tracking-[0.15em] text-[#7a6c57] uppercase">
+                      {profileRole.replaceAll("_", " ")}
+                    </p>
+                    <button
+                      type="button"
+                      className="mt-3 w-full rounded-lg bg-[#2f5d31] px-3 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#244826]"
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        handleSignOut();
+                      }}
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    href="/get-started"
+                    className="rounded-lg bg-[#2f5d31] px-4 py-3 text-center text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#244826]"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Get Started
+                  </Link>
+                )}
               </div>
             </div>
           </div>

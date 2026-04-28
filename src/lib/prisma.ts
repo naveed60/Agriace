@@ -21,7 +21,7 @@ const createPrismaClient = () =>
     log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
   });
 
-const prisma = globalThis.prisma ?? createPrismaClient();
+export const prisma = globalThis.prisma ?? createPrismaClient();
 
 if (process.env.NODE_ENV !== "production") {
   globalThis.prisma = prisma;
@@ -37,11 +37,11 @@ export async function connectDatabase(): Promise<void> {
       .$connect()
       .then(() => {
         globalThis.prismaConnected = true;
-        console.info("[Database] connected to PostgreSQL");
+        console.info("✅ [Database] Connected to PostgreSQL");
       })
       .catch((error: unknown) => {
         globalThis.prismaConnectPromise = undefined;
-        console.error("[Database] failed to connect to PostgreSQL", error);
+        console.error("❌ [Database] Failed to connect to PostgreSQL", error);
         throw error;
       });
   }
