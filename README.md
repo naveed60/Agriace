@@ -24,6 +24,7 @@ A modern, responsive website for FertilizerPro - Premium Fertilizers for Sustain
 
 - Node.js 18.x or higher
 - npm, yarn, or pnpm
+- Docker Engine + Docker Compose plugin (for containerized setup)
 
 ### Installation
 
@@ -55,6 +56,43 @@ pnpm dev
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the website.
 
+## Dockerized Setup (App + PostgreSQL + Migrations)
+
+This repository includes a production-style Docker setup:
+
+- `postgres` service (persistent volume + healthcheck)
+- `migrate` one-shot service (`prisma migrate deploy`)
+- `app` service (Next.js standalone runtime)
+
+### 1. Configure environment
+
+```bash
+cp .env.example .env
+```
+
+### 2. Build and start all services
+
+```bash
+npm run docker:up
+```
+
+### 3. Open the app
+
+- App: `http://localhost:${APP_PORT}` (default `http://localhost:3000`)
+- Postgres on host: `${POSTGRES_PORT}` (default `5433` in `.env.example`)
+
+### 4. View logs
+
+```bash
+npm run docker:logs
+```
+
+### 5. Stop services
+
+```bash
+npm run docker:down
+```
+
 ## Project Structure
 
 ```
@@ -85,6 +123,10 @@ Fertilizers/
 - `npm run dev` - Start development server on http://localhost:3000
 - `npm run build` - Build the application for production
 - `npm run start` - Start the production server
+- `npm run docker:build` - Build Docker images
+- `npm run docker:up` - Build and run app + database + migrations
+- `npm run docker:down` - Stop and remove Docker containers
+- `npm run docker:logs` - Follow app and database logs
 - `npm run lint` - Run ESLint to check code quality
 - `npm run format` - Format code with Prettier
 - `npm run format:check` - Check code formatting without making changes
