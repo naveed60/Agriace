@@ -99,10 +99,10 @@ export default function Header() {
     ].join(" ");
 
   const isAuthenticated = status === "authenticated" && !!session?.user;
+  const isSessionLoading = status === "loading";
   const profileName = session?.user?.name ?? "User";
   const profileEmail = session?.user?.email ?? "";
   const profileRole = session?.user?.role ?? "CUSTOMER";
-  const profileInitial = (profileName.trim().charAt(0) || "U").toUpperCase();
 
   const handleSignOut = () => {
     const callbackUrl = `${window.location.origin}/`;
@@ -119,7 +119,7 @@ export default function Header() {
           >
             <div className="flex h-14 w-[170px] shrink-0 items-center justify-center md:h-16 md:w-[210px]">
               <Image
-                src="/logo_1.png"
+                src="/logo_3.png"
                 alt="AgriAce Fertilizers logo"
                 width={258}
                 height={126}
@@ -256,18 +256,36 @@ export default function Header() {
             >
               Contact Sales
             </Link>
-            {isAuthenticated ? (
+            {isSessionLoading ? (
+              <span
+                className="flex h-15 w-15 items-center justify-center rounded-full bg-[#edf2f6] text-[#98a0aa] shadow-[0_8px_20px_rgba(91,74,38,0.08)]"
+                aria-label="Loading user session"
+              >
+                <svg
+                  className="h-8 w-8"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Zm0 2.25c-3.49 0-6.75 1.77-6.75 4.5a.75.75 0 0 0 .75.75h12a.75.75 0 0 0 .75-.75c0-2.73-3.26-4.5-6.75-4.5Z" />
+                </svg>
+              </span>
+            ) : isAuthenticated ? (
               <div className="group/profile relative">
                 <button
                   type="button"
-                  className="flex items-center gap-2 rounded-xl border border-[#ddd4c0] bg-white px-3 py-2 text-left shadow-[0_8px_20px_rgba(91,74,38,0.08)] transition-colors hover:bg-[#f8f4ea]"
+                  className="flex h-13 w-13 items-center justify-center rounded-full bg-[#276920] text-[#ddebdc] shadow-[0_8px_20px_rgba(91,74,38,0.08)] transition-colors duration-200 cursor-pointer hover:bg-[#244826]"
+                  aria-label={`Signed in as ${profileName}`}
+                  title={`Signed in as ${profileName}`}
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] text-sm font-bold text-white">
-                    {profileInitial}
-                  </span>
-                  <span className="max-w-[120px] truncate text-sm font-semibold text-[#2c3f23]">
-                    {profileName}
-                  </span>
+                  <svg
+                    className="h-8 w-8"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Zm0 2.25c-3.49 0-6.75 1.77-6.75 4.5a.75.75 0 0 0 .75.75h12a.75.75 0 0 0 .75-.75c0-2.73-3.26-4.5-6.75-4.5Z" />
+                  </svg>
                 </button>
                 <div className="pointer-events-none absolute top-full right-0 z-50 mt-3 w-72 translate-y-1 opacity-0 transition-all duration-200 group-hover/profile:pointer-events-auto group-hover/profile:translate-y-0 group-hover/profile:opacity-100">
                   <div className="rounded-2xl border border-[#ddd6c6]/80 bg-[rgba(255,251,244,0.98)] p-4 shadow-[0_24px_60px_rgba(91,74,38,0.16)] backdrop-blur-xl">
@@ -379,7 +397,15 @@ export default function Header() {
                 >
                   Contact Sales
                 </Link>
-                {isAuthenticated ? (
+                {isSessionLoading ? (
+                  <div className="rounded-lg border border-[#ddd4c0] bg-[#fdfaf4] p-3">
+                    <p className="text-xs font-semibold tracking-[0.2em] text-[#7a6c57] uppercase">
+                      Loading
+                    </p>
+                    <div className="mt-2 h-4 w-24 rounded bg-[#e6dfcf]" />
+                    <div className="mt-2 h-3 w-36 rounded bg-[#ece6d8]" />
+                  </div>
+                ) : isAuthenticated ? (
                   <div className="rounded-lg border border-[#ddd4c0] bg-[#fdfaf4] p-3">
                     <p className="text-xs font-semibold tracking-[0.2em] text-[#7a6c57] uppercase">
                       Signed In
