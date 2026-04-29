@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { type FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 
@@ -144,12 +145,12 @@ function LoginForm() {
         <p className={`${formControlWrapClassName} mt-4 text-sm text-red-700`}>{errorMessage}</p>
       ) : null}
 
-      <button
-        type="button"
+      <Link
+        href="/forgot-password"
         className={`${formControlWrapClassName} mt-3 block text-left text-sm font-medium text-[#6a6457] transition-colors hover:text-[#2f5d31]`}
       >
         Forgot your password?
-      </button>
+      </Link>
 
       <button
         type="submit"

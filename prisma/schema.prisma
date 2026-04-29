@@ -68,9 +68,10 @@ model User {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
-  accounts      Account[]
-  sessions      Session[]
-  assignedLeads Lead[]    @relation("LeadAssignee")
+  accounts            Account[]
+  sessions            Session[]
+  assignedLeads       Lead[]               @relation("LeadAssignee")
+  passwordResetTokens PasswordResetToken[]
 
   @@index([role, isActive])
   @@index([createdAt])
@@ -113,6 +114,20 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
 }
 
 model ProductCategory {
