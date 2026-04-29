@@ -100,6 +100,8 @@ export default function Header() {
 
   const isAuthenticated = status === "authenticated" && !!session?.user;
   const isSessionLoading = status === "loading";
+  const isAuthPage = pathname === "/get-started";
+  const shouldShowLoadingAuthUi = isSessionLoading && !isAuthPage;
   const profileName = session?.user?.name ?? "User";
   const profileEmail = session?.user?.email ?? "";
   const profileRole = session?.user?.role ?? "CUSTOMER";
@@ -256,7 +258,7 @@ export default function Header() {
             >
               Contact Sales
             </Link>
-            {isSessionLoading ? (
+            {shouldShowLoadingAuthUi ? (
               <span
                 className="flex h-15 w-15 items-center justify-center rounded-full bg-[#edf2f6] text-[#98a0aa] shadow-[0_8px_20px_rgba(91,74,38,0.08)]"
                 aria-label="Loading user session"
@@ -397,7 +399,7 @@ export default function Header() {
                 >
                   Contact Sales
                 </Link>
-                {isSessionLoading ? (
+                {shouldShowLoadingAuthUi ? (
                   <div className="rounded-lg border border-[#ddd4c0] bg-[#fdfaf4] p-3">
                     <p className="text-xs font-semibold tracking-[0.2em] text-[#7a6c57] uppercase">
                       Loading
