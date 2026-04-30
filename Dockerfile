@@ -7,9 +7,10 @@ ENV NEXT_TELEMETRY_DISABLED=1
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 FROM base AS builder
+# Dummy URL — prisma generate parses it but doesn't connect
 ENV DATABASE_URL=postgresql://postgres:postgres@localhost:5432/agriace_fertilizers?schema=public
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
