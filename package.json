@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "npm run db:generate",
     "dev": "next dev",
+    "prebuild": "npm run db:generate",
     "build": "next build",
     "start": "next start",
     "docker:build": "docker compose build",
@@ -27,10 +29,10 @@
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "bcryptjs": "^3.0.3",
-    "next": "16.2.4",
+    "next": "^16.2.4",
     "next-auth": "^4.24.14",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "zod": "^4.3.6"
   },
   "devDependencies": {
