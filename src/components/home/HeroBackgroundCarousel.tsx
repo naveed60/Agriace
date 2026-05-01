@@ -17,7 +17,7 @@ type HeroBackgroundCarouselProps = {
 
 export default function HeroBackgroundCarousel({
   slides,
-  intervalMs = 5000,
+  intervalMs = 2200,
 }: HeroBackgroundCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -56,7 +56,7 @@ export default function HeroBackgroundCarousel({
       {slides.map((slide, index) => (
         <div
           key={slide.src}
-          className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+          className={`absolute inset-0 transition-opacity duration-400 ease-out ${
             index === activeIndex ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden={index !== activeIndex}
@@ -70,7 +70,7 @@ export default function HeroBackgroundCarousel({
               fill
               priority={index === 0}
               sizes="100vw"
-              className={`transition-transform duration-[1400ms] ease-out ${
+              className={`transition-transform duration-[700ms] ease-out ${
                 index === activeIndex ? "scale-100" : "scale-[1.04]"
               } ${slide.imageClassName ?? "object-cover object-center"}`.trim()}
             />

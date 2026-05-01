@@ -688,7 +688,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f7f2e7_0%,#efe6d6_100%)] py-18">
+      <section
+        id="testimonials"
+        className="relative overflow-hidden bg-[linear-gradient(180deg,#f7f2e7_0%,#efe6d6_100%)] py-18"
+      >
         <div
           className="absolute top-12 left-[6%] h-52 w-52 rounded-full bg-[rgba(185,138,44,0.12)] blur-3xl"
           aria-hidden="true"

@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { type FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { type FormEvent, useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 
 type AuthMode = "login" | "signup";
 
@@ -16,6 +17,7 @@ const inputClassName =
   "w-full rounded-2xl border border-[#e5dcc9] bg-[#fbf8f1] px-4 py-3 text-[#243821] outline-none transition-all duration-300 placeholder:text-[#9a8f7b] focus:border-[#94a24a] focus:bg-white focus:shadow-[0_0_0_4px_rgba(126,141,47,0.12)]";
 
 const formControlWrapClassName = "mx-auto w-[88%] sm:w-[84%] cursor-pointer";
+const dashboardPath = "/dashboard";
 
 function SocialButtons({
   onGoogleClick,
@@ -65,13 +67,14 @@ function SocialButtons({
 }
 
 function LoginForm() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleGoogleSignIn = () => {
-    const callbackUrl = `${window.location.origin}/`;
+    const callbackUrl = `${window.location.origin}${dashboardPath}`;
     void signIn("google", { callbackUrl });
   };
 
@@ -81,7 +84,7 @@ function LoginForm() {
     setIsSubmitting(true);
 
     try {
-      const callbackUrl = `${window.location.origin}/`;
+      const callbackUrl = `${window.location.origin}${dashboardPath}`;
       const result = await signIn("credentials", {
         email: email.trim().toLowerCase(),
         password,
@@ -94,7 +97,8 @@ function LoginForm() {
         return;
       }
 
-      window.location.assign("/");
+      router.push(dashboardPath);
+      router.refresh();
     } catch {
       setErrorMessage("Login failed. Please try again.");
     } finally {
@@ -164,6 +168,7 @@ function LoginForm() {
 }
 
 function SignupForm() {
+  const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -172,7 +177,7 @@ function SignupForm() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleGoogleSignIn = () => {
-    const callbackUrl = `${window.location.origin}/`;
+    const callbackUrl = `${window.location.origin}${dashboardPath}`;
     void signIn("google", { callbackUrl });
   };
 
@@ -183,7 +188,7 @@ function SignupForm() {
     setIsSubmitting(true);
 
     try {
-      const callbackUrl = `${window.location.origin}/`;
+      const callbackUrl = `${window.location.origin}${dashboardPath}`;
       const registerResponse = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -215,7 +220,8 @@ function SignupForm() {
         return;
       }
 
-      window.location.assign("/");
+      router.push(dashboardPath);
+      router.refresh();
     } catch {
       setErrorMessage("Registration failed. Please try again.");
     } finally {
@@ -330,8 +336,17 @@ function IntroPanel({
 }
 
 export default function GetStartedPage() {
+  const router = useRouter();
+  const { status } = useSession();
   const [mode, setMode] = useState<AuthMode>("login");
   const isLogin = mode === "login";
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.replace(dashboardPath);
+      router.refresh();
+    }
+  }, [router, status]);
 
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f7f3e8_0%,#eef3e6_100%)] py-14 sm:py-5">
