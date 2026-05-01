@@ -301,10 +301,28 @@ export default function Header() {
                     <p className="mt-3 inline-flex rounded-full border border-[#d8d0bc] bg-white px-2.5 py-1 text-[0.65rem] font-semibold tracking-[0.18em] text-[#6a6558] uppercase">
                       {profileRole.replaceAll("_", " ")}
                     </p>
+                    <Link
+                      href="/dashboard"
+                      className="mt-4 block w-full rounded-xl border border-[#d8d0bc] px-3 py-2.5 text-center text-sm font-semibold text-[#2f5d31] transition-colors hover:bg-[#f7f2e7]"
+                    >
+                      Open Dashboard
+                    </Link>
+                    <Link
+                      href="/dashboard/profile"
+                      className="mt-3 block w-full rounded-xl border border-[#d8d0bc] px-3 py-2.5 text-center text-sm font-semibold text-[#2f5d31] transition-colors hover:bg-[#f7f2e7]"
+                    >
+                      Edit Profile
+                    </Link>
+                    <Link
+                      href="/dashboard/my-products"
+                      className="mt-3 block w-full rounded-xl border border-[#d8d0bc] px-3 py-2.5 text-center text-sm font-semibold text-[#2f5d31] transition-colors hover:bg-[#f7f2e7]"
+                    >
+                      My Products
+                    </Link>
                     <button
                       type="button"
                       onClick={handleSignOut}
-                      className="mt-4 w-full rounded-xl bg-[#2f5d31] px-3 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#244826]"
+                      className="mt-3 w-full rounded-xl bg-[#2f5d31] px-3 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#244826]"
                     >
                       Sign Out
                     </button>
@@ -417,6 +435,27 @@ export default function Header() {
                     <p className="mt-2 text-[0.7rem] font-semibold tracking-[0.15em] text-[#7a6c57] uppercase">
                       {profileRole.replaceAll("_", " ")}
                     </p>
+                    <Link
+                      href="/dashboard"
+                      className="mt-3 block rounded-lg border border-[#d8d0bc] px-4 py-3 text-center text-sm font-semibold text-[#2f5d31] transition-colors duration-300 hover:bg-[#f8f4ea]"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Open Dashboard
+                    </Link>
+                    <Link
+                      href="/dashboard/profile"
+                      className="mt-3 block rounded-lg border border-[#d8d0bc] px-4 py-3 text-center text-sm font-semibold text-[#2f5d31] transition-colors duration-300 hover:bg-[#f8f4ea]"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Edit Profile
+                    </Link>
+                    <Link
+                      href="/dashboard/my-products"
+                      className="mt-3 block rounded-lg border border-[#d8d0bc] px-4 py-3 text-center text-sm font-semibold text-[#2f5d31] transition-colors duration-300 hover:bg-[#f8f4ea]"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      My Products
+                    </Link>
                     <button
                       type="button"
                       className="mt-3 w-full rounded-lg bg-[#2f5d31] px-3 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#244826]"

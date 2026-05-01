@@ -1,53 +1,8 @@
 import Image from "next/image";
 import ProductCarousel from "./ProductCarousel";
+import { productCatalog } from "@/lib/products/catalog";
 
 export default function Products() {
-  const products = [
-    {
-      name: "CrownHuma Potassium Humate",
-      price: "PKR 399",
-      description: "Organic Soil Conditioner & Plant Growth Promoter - Eco-Friendly & Safe for Sustainable Agriculture",
-      features: ["Increases Root Growth", "Improves Soil Fertility", "Eco-Friendly & Organic"],
-      image: "/product-packaging.jpeg",
-      featured: true,
-    },
-    {
-      name: "NPK 20-20-20",
-      price: "PKR 449",
-      description: "Balanced NPK formula for all-purpose plant nutrition",
-      features: ["Balanced nutrients", "Fast absorption", "Suitable for all crops"],
-      image: "/product-npk-20-20-20.svg",
-    },
-    {
-      name: "Liquid Nutrients",
-      price: "PKR 349",
-      description: "Quick-absorbing liquid fertilizer for rapid growth",
-      features: ["Instant results", "Easy application", "Concentrated formula"],
-      image: "/product-liquid-nutrients.svg",
-    },
-    {
-      name: "Organic Compost",
-      price: "PKR 299",
-      description: "100% natural compost for enriching soil with organic matter",
-      features: ["Rich in nutrients", "Improves soil structure", "Eco-friendly"],
-      image: "/product-organic-compost.svg",
-    },
-    {
-      name: "Micronutrient Mix",
-      price: "PKR 499",
-      description: "Essential trace elements for plant health",
-      features: ["Complete micronutrients", "Prevents deficiencies", "Premium quality"],
-      image: "/product-micronutrient-mix.svg",
-    },
-    {
-      name: "Slow Release Granules",
-      price: "PKR 549",
-      description: "Time-release formula for sustained nutrition",
-      features: ["3-month release", "Reduces application frequency", "Weather resistant"],
-      image: "/product-slow-release-granules.svg",
-    },
-  ];
-
   return (
     <div className="relative overflow-hidden bg-[linear-gradient(180deg,#f6f0e4_0%,#eee5d4_46%,#e4eadc_100%)] py-20">
       <div
@@ -125,7 +80,7 @@ export default function Products() {
           </div>
         </div>
 
-        <ProductCarousel products={products} />
+        <ProductCarousel products={productCatalog} />
       </div>
     </div>
   );

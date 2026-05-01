@@ -1,21 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
-import { startTransition, useState } from "react";
+import { startTransition, useReducer, useState } from "react";
+import { useSession } from "next-auth/react";
 
-type Product = {
-  name: string;
-  price: string;
-  description: string;
-  features: string[];
-  image?: string;
-  featured?: boolean;
-  color?: "lime" | "yellow" | "green";
-};
+import { addStoredProductSlug, readStoredProductSlugs } from "@/lib/account/client-storage";
+import type { ProductCatalogItem } from "@/lib/products/catalog";
 
 const PAGE_SIZE = 3;
 
-const productColorClasses: Record<NonNullable<Product["color"]>, string> = {
+const productColorClasses: Record<NonNullable<ProductCatalogItem["color"]>, string> = {
   lime: "bg-[#86d300]",
   yellow: "bg-[#f2b705]",
   green: "bg-[#08cf54]",
@@ -52,7 +47,19 @@ function ArrowButton({
   );
 }
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({
+  product,
+  isSignedIn,
+  isSaved,
+  isSaving,
+  onAdd,
+}: {
+  product: ProductCatalogItem;
+  isSignedIn: boolean;
+  isSaved: boolean;
+  isSaving: boolean;
+  onAdd: (slug: string) => void;
+}) {
   return (
     <div
       className={`flex h-full flex-col overflow-hidden rounded-[1.4rem] border border-[#d8cfbb] bg-[#fffdfa] shadow-[0_18px_40px_rgba(91,74,38,0.12)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_24px_52px_rgba(91,74,38,0.16)] ${
@@ -112,9 +119,27 @@ function ProductCard({ product }: { product: Product }) {
           ))}
         </ul>
 
-        <button className="mt-auto w-full btn-primary" type="button">
-          Add to Cart
-        </button>
+        {isSignedIn ? (
+          <button
+            className={`mt-auto w-full rounded-full px-5 py-3 text-sm font-semibold text-white transition-all ${
+              isSaved
+                ? "cursor-default bg-[#23371f]"
+                : "bg-[linear-gradient(135deg,#2f5d31_0%,#7e8d2f_100%)] hover:-translate-y-0.5"
+            } ${isSaving ? "cursor-not-allowed opacity-70" : ""}`}
+            type="button"
+            onClick={() => onAdd(product.slug)}
+            disabled={isSaving || isSaved}
+          >
+            {isSaved ? "Added to My Products" : isSaving ? "Adding..." : "Add to My Products"}
+          </button>
+        ) : (
+          <Link
+            href="/get-started"
+            className="mt-auto block w-full rounded-full border border-[#d8d0bc] px-5 py-3 text-center text-sm font-semibold text-[#2f5d31] transition-colors hover:bg-[#f6f2e8]"
+          >
+            Sign In to Save
+          </Link>
+        )}
       </div>
     </div>
   );
@@ -144,10 +169,15 @@ function PaginationDot({
   );
 }
 
-export default function ProductCarousel({ products }: { products: Product[] }) {
+export default function ProductCarousel({ products }: { products: ProductCatalogItem[] }) {
+  const { data: session, status } = useSession();
   const [page, setPage] = useState(0);
+  const [savingSlug, setSavingSlug] = useState<string | null>(null);
+  const [, refreshProducts] = useReducer((value: number) => value + 1, 0);
   const totalPages = Math.ceil(products.length / PAGE_SIZE);
   const visibleProducts = products.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  const currentUserId = session?.user?.id ?? "";
+  const savedSlugs = currentUserId ? readStoredProductSlugs(currentUserId) : [];
   const goToPreviousPage = () =>
     startTransition(() => {
       setPage((currentPage) => (currentPage === 0 ? totalPages - 1 : currentPage - 1));
@@ -156,6 +186,18 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
     startTransition(() => {
       setPage((currentPage) => (currentPage === totalPages - 1 ? 0 : currentPage + 1));
     });
+
+  const handleAddProduct = async (productSlug: string) => {
+    if (!currentUserId) return;
+    setSavingSlug(productSlug);
+
+    try {
+      addStoredProductSlug(currentUserId, productSlug);
+      refreshProducts();
+    } finally {
+      setSavingSlug(null);
+    }
+  };
 
   return (
     <section className="mt-4">
@@ -198,7 +240,14 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
           {visibleProducts.map((product) => (
-            <ProductCard key={product.name} product={product} />
+            <ProductCard
+              key={product.slug}
+              product={product}
+              isSignedIn={status === "authenticated"}
+              isSaved={savedSlugs.includes(product.slug)}
+              isSaving={savingSlug === product.slug}
+              onAdd={handleAddProduct}
+            />
           ))}
         </div>
 

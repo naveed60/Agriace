@@ -5,7 +5,7 @@ const quickLinks = [
   { href: "/", label: "Home" },
   { href: "/products", label: "Products" },
   { href: "/about", label: "About Us" },
-  { href: "/contact", label: "Contact" },
+  { href: "/testimonials", label: "Testimonials" },
 ];
 
 const ruleItems = [
@@ -95,8 +95,8 @@ export default function Footer() {
       </div>
 
       <div className="relative border-t border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.03)_0%,rgba(255,255,255,0.015)_100%)]">
-        <div className="mx-auto max-w-[1240px] px-6 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
-          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.8fr_0.8fr_1fr] lg:gap-12">
+        <div className="mx-auto max-w-[1240px] px-6 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-13">
+          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.8fr_0.8fr_1fr] lg:gap-10">
             <div className="lg:pr-6">
               <Link href="/" className="flex items-center gap-4">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/6 backdrop-blur-sm">
@@ -119,7 +119,7 @@ export default function Footer() {
                 </div>
               </Link>
 
-              <p className="mt-6 max-w-sm text-sm leading-[1.8] text-white/86 sm:text-[0.98rem]">
+              <p className="mt-5 max-w-sm text-sm leading-[1.8] text-white/86 sm:text-[0.98rem]">
                 Premium fertilizers for sustainable agriculture, built for stronger
                 soil health, cleaner crop response, and dependable field performance.
               </p>
@@ -130,7 +130,7 @@ export default function Footer() {
               <div className="text-[0.78rem] font-semibold tracking-[0.22em] text-[#ded6c2] uppercase">
                 Quick Links
               </div>
-              <ul className="mt-5 space-y-3">
+              <ul className="mt-4 space-y-3">
                 {quickLinks.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -146,11 +146,11 @@ export default function Footer() {
                 ))}
               </ul>
 
-              <div className="mt-8">
+              <div className="mt-6">
                 <div className="text-[0.78rem] font-semibold tracking-[0.22em] text-[#ded6c2] uppercase">
                   Rules
                 </div>
-                <ul className="mt-4 space-y-3">
+                <ul className="mt-3 space-y-3">
                   {ruleItems.map((item) => (
                     <li key={item.label}>
                       <Link
@@ -172,7 +172,7 @@ export default function Footer() {
               <div className="text-[0.78rem] font-semibold tracking-[0.22em] text-[#ded6c2] uppercase">
                 Products
               </div>
-              <ul className="mt-5 space-y-3">
+              <ul className="mt-4 space-y-3">
                 {productLinks.map((link) => (
                   <li key={link.label}>
                     <Link
@@ -188,11 +188,11 @@ export default function Footer() {
                 ))}
               </ul>
 
-              <div className="mt-8">
+              <div className="mt-6">
                 <div className="text-[0.78rem] font-semibold tracking-[0.22em] text-[#ded6c2] uppercase">
                   Connect
                 </div>
-                <div className="mt-4 flex items-center gap-2.5">
+                <div className="mt-3 flex items-center gap-2.5">
                   {socialLinks.map((social) => (
                     <a
                       key={social.label}
@@ -207,13 +207,14 @@ export default function Footer() {
                   ))}
                 </div>
               </div>
+
             </div>
 
             <div>
               <div className="text-[0.78rem] font-semibold tracking-[0.22em] text-[#ded6c2] uppercase">
                 Contact
               </div>
-              <ul className="mt-5 space-y-3">
+              <ul className="mt-4 space-y-3">
                 {contactItems.map((item) => (
                   <li key={item.label} className="flex items-start gap-3 text-[0.98rem] leading-relaxed text-white/84">
                     <span className="mt-0.5 text-[#d9c88f]">{item.icon}</span>
@@ -236,14 +237,14 @@ export default function Footer() {
 
               <Link
                 href="/contact"
-                className="mt-6 inline-flex rounded-full border border-[#d5c694]/30 bg-[linear-gradient(135deg,#f4edda_0%,#e8dcc0_100%)] px-6 py-3.5 text-sm font-semibold text-[#23371f] shadow-[0_14px_30px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d5c694]/55 hover:bg-[linear-gradient(135deg,#fbf6e8_0%,#ede1c7_100%)]"
+                className="mt-5 inline-flex rounded-full border border-[#d5c694]/30 bg-[linear-gradient(135deg,#f4edda_0%,#e8dcc0_100%)] px-6 py-3.5 text-sm font-semibold text-[#23371f] shadow-[0_14px_30px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d5c694]/55 hover:bg-[linear-gradient(135deg,#fbf6e8_0%,#ede1c7_100%)]"
               >
                 Contact Sales
               </Link>
             </div>
           </div>
 
-          <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-7 text-sm text-white/68 md:flex-row md:items-center md:justify-between">
+          <div className="mt-8 flex flex-col gap-4 border-t border-white/8 pt-5 text-sm text-white/68 md:flex-row md:items-center md:justify-between">
             <p>&copy; {currentYear} AgriAce Fertilizers. All rights reserved.</p>
             <p className="text-white/58">Premium plant nutrition for dependable field performance.</p>
           </div>
